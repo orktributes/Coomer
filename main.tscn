@@ -1,0 +1,64 @@
+[gd_scene load_steps=4 format=3 uid="uid://750tdrwf1v18"]
+
+[ext_resource type="Script" path="res://scripts/save.gd" id="1_f5to2"]
+[ext_resource type="PackedScene" uid="uid://dluv4oq7277ln" path="res://scenes/rule34_imgs.tscn" id="2_76vj6"]
+[ext_resource type="Script" path="res://scripts/show_imgs.gd" id="2_gnkv5"]
+
+[node name="TabContainer" type="TabContainer"]
+anchors_preset = -1
+anchor_left = 0.026
+anchor_right = 1.0
+offset_left = -29.928
+offset_right = -4.0
+offset_bottom = 592.0
+grow_horizontal = 2
+
+[node name="save" type="VBoxContainer" parent="."]
+layout_mode = 2
+script = ExtResource("1_f5to2")
+
+[node name="MarginContainer" type="MarginContainer" parent="save"]
+layout_mode = 2
+theme_override_constants/margin_right = 0
+
+[node name="LineEdit" type="LineEdit" parent="save/MarginContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="save/MarginContainer/LineEdit"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -104.0
+offset_bottom = 31.0
+grow_horizontal = 0
+text = "Search"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="save"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_vertical = 3
+follow_focus = true
+horizontal_scroll_mode = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="save/ScrollContainer"]
+layout_mode = 2
+
+[node name="show_imgs" type="GridContainer" parent="save/ScrollContainer/HBoxContainer"]
+layout_mode = 2
+columns = 8
+script = ExtResource("2_gnkv5")
+
+[node name="rule34_imgs" parent="save/ScrollContainer/HBoxContainer/show_imgs" instance=ExtResource("2_76vj6")]
+layout_mode = 2
+stretch_mode = 3
+
+[node name="view" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 2
+
+[node name="requests" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 2
+
+[connection signal="pressed" from="save/MarginContainer/LineEdit/Button" to="save/ScrollContainer/HBoxContainer/show_imgs" method="_on_button_pressed"]
